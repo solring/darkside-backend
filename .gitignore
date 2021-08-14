@@ -1,3 +1,5 @@
-.DB_Store
+.DS_Store
 env/
-
+database/
+*/*.pyc
+*.pyc
