@@ -5,8 +5,8 @@ import re
 
 # mongo db location
 MONGODB = "mongodb://localhost:27017/"
+DB = "darkside"
 COLLECTION = "articles"
-IMG = "img"
 
 if __name__ == "__main__":
     if len(argv) < 2:
@@ -14,7 +14,7 @@ if __name__ == "__main__":
         exit(0)
 
     client = MongoClient(MONGODB)
-    db = client.darkside
+    db = client[DB]
     article = db[COLLECTION]
 
     filename = argv[1]
@@ -22,6 +22,10 @@ if __name__ == "__main__":
         data = DictReader(fd)
 
         data = [ r for r in data ]
+        for i in range(len(data)):
+            data[i]["height"] = float(data[i]["height"])
+            data[i]["tags"] = [ data[i]["tags"] ]
+            data[i]["id"] = i
 
         res = article.insert_many(data)
         print(res.inserted_ids)
