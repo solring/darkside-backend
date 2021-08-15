@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from .queries import DBQuery
+from .log import log
 
 MONGODB = "mongodb://localhost:27017/"
 DB = "darkside"
@@ -29,12 +30,11 @@ def pack(result, nxt):
 
 @app.route("/api/article/", methods=['POST'])
 def get_article_all():
-    print("get all:" )
 
     data = request.get_json()
     start = data['start'] if 'start' in data else 0
     length = data['length'] if 'length' in data else 0
-    print("start: %d, len: %d." %(start, length))
+    log(get_article_all, "start: %d, len: %d." %(start, length))
     end = start + length
 
     res, nxt = dbq.get_all(start, end)
@@ -43,13 +43,14 @@ def get_article_all():
 @app.route("/api/article/<category>", methods=['POST'])
 def get_article_by_category(category):
 
-    print("get category %s:" % category)
+    log(get_article_by_category, "get category: %s" % category)
 
     data = request.get_json()
 
     start = data['start'] if 'start' in data else 0
     length = data['length'] if 'length' in data else 0
-    print("start: %d, len: %d." %(start, length))
+    log(get_article_by_category, "start: %d, len: %d." %(start, length))
+
     end = start + length
 
     res, nxt = dbq.get_by_category(category, start, end)
