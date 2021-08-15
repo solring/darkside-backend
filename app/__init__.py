@@ -27,9 +27,8 @@ def pack(result, nxt):
     }
     return jsonify(obj)
 
-
 @app.route("/api/article/", methods=['POST'])
-def getArticles():
+def get_article_all():
     print("get all:" )
 
     data = request.get_json()
@@ -42,7 +41,7 @@ def getArticles():
     return pack(res, nxt)
 
 @app.route("/api/article/<category>", methods=['POST'])
-def getArticlesByCategory(category):
+def get_article_by_category(category):
 
     print("get category %s:" % category)
 
@@ -55,6 +54,18 @@ def getArticlesByCategory(category):
 
     res, nxt = dbq.get_by_category(category, start, end)
     return pack(res, nxt)
+
+@app.route("/api/tag/all", methods=['GET'])
+def get_tags_all():
+    res = dbq.get_total_tags()
+    print(res)
+    return jsonify(res)
+
+@app.route("/api/tag/<category>", methods=['GET'])
+def get_tags_by_category(category):
+    res = dbq.get_category_tags(category)
+    print(res)
+    return jsonify(res)
 
 @app.route("/echo")
 def echoTest():
