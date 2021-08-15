@@ -18,3 +18,17 @@ pip3 install requirement.txt
 ```
 pip3 freeze > requirement.txt
 ```
+
+# Start Server
+
+## Start MongoDB using Docker
+Docker is required.
+Currently using local volumns rather than mounted volumn.
+```
+./startdocker.sh
+```
+
+## Start backend server
+```
+./run.sh
+```
