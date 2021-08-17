@@ -59,13 +59,13 @@ def get_article_by_category(category):
 @app.route("/api/tag/all", methods=['GET'])
 def get_tags_all():
     res = dbq.get_total_tags()
-    print(res)
+    log(get_tags_all, res)
     return jsonify(res)
 
 @app.route("/api/tag/<category>", methods=['GET'])
 def get_tags_by_category(category):
     res = dbq.get_category_tags(category)
-    print(res)
+    log(get_tags_all, res)
     return jsonify(res)
 
 @app.route("/echo")

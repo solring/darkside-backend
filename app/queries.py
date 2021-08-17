@@ -14,14 +14,12 @@ class DBQuery:
         return (cache[start:end], min(end, len(cache)))
 
     def get_all(self, start, end):
-        print("get all: %d, %d." %(start, end))
         if 'all' not in self.cache:
             self.cache['all'] = [ i for i in self.col.find({}, projection=def_proj)]
 
         return self.get_result(self.cache['all'], start, end)
 
     def get_by_category(self, category, start, end):
-        print("get by cate: %d, %d." %(start, end))
         if category not in self.cache:
             self.cache[category] = [ i for i in self.col.find({'category': category}, projection=def_proj)]
 

@@ -3,7 +3,7 @@ LOG = "INFO"
 WARNING = "WARN"
 
 def format(level, func_name, msg):
-    return "[%s] %s(): %s" % (level, func_name, msg)
+    return "[app][%s] %s(): %s" % (level, func_name, msg)
 
 def log(func, msg):
     print(format(LOG, func.__name__, msg))
