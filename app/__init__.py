@@ -1,9 +1,12 @@
+from os import environ
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from .queries import DBQuery
 from .log import log
 
-MONGODB = "mongodb://localhost:27017/"
+url = environ.get('MONGO_URL')
+
+MONGODB = "%s:27017" % url if url else "127.0.0.1:27017"
 DB = "darkside"
 COLLECTION = "articles"
 dbq = DBQuery(MONGODB, DB, COLLECTION)

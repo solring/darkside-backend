@@ -8,6 +8,13 @@ services:
       - darksideVolume-config:/data/configdb
     ports:
       - 27017:27017
+  darkside:
+    build: .
+    image: darkside-backend:0.2
+    ports:
+      - 5000:5000
+    environment:
+      - MONGO_URL=mongo
 volumes:
   darksideVolume:
   darksideVolume-db:

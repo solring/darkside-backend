@@ -1,7 +1,7 @@
 # Getting Start
 
 1. Install virtualenv and python 3(with pip)
-2. Build virtualenv folder
+2. Build virtualenv
 ```
 virtualenv env
 ```
@@ -11,24 +11,30 @@ source env/bin/activate
 ```
 4. Install required packages
 ```
-pip3 install requirement.txt
+pip install requirements.txt
 ```
 
 ## Updating requirement
 ```
-pip3 freeze > requirement.txt
+pip freeze > requirements.txt
 ```
 
 # Start Server
 
-## Start MongoDB using Docker
-Docker is required.
+## Start backend server with MongoDB using Docker
+
+Requires `docker` and `docker-compose`
+
 Currently using local volumns rather than mounted volumn.
 ```
-./startdocker.sh
+./scripts/startdocker.sh
 ```
 
-## Start backend server
+## Start locally (backend server only)
 ```
-./run.sh
+./scripts/run.sh
 ```
+
+# Testing
+
+Testing scripts using `curl` are located in `./tools/test.sh`
