@@ -27,11 +27,11 @@ Requires `docker` and `docker-compose`
 
 ### Use mounted volumes
 1. Create folder to be mounted as docker volume and to store DB data.
-2. Modify `docker-compose.env`. Change the MONDO environment variable to your created folder.
+2. Modify `docker-compose.env`. Change the environment variable to your created folder.
     ``` docker-compose.env
     MONGO=/path/to/your/db/folder
     ```
-3. Run startdocker.sh
+3. Run `startdocker.sh`
     ```
     ./scripts/startdocker.sh
     ```
@@ -40,7 +40,7 @@ Requires `docker` and `docker-compose`
 ### Use local volumes
 This is an alternative option if your local filesystem cannot be mounted by docker(e.g. OS X or Windows).
 1. Copy `docker-compose.yaml.localvolume` as `docker-compose.yaml`.
-2. Run startdocker.sh
+2. Run `startdocker.sh`
     ```
     ./scripts/startdocker.sh
     ```
@@ -57,4 +57,8 @@ Testing scripts using `curl` are located in `./tools/test.sh`
 # Importing data
 
 Python scripts and example data for importing articles from .csv are located in `./tools/`
+After starting the server, data can be imported by running the script:
+```
+python3 importData.py [csv you want to import]
+```
 
