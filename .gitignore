@@ -1,5 +1,5 @@
 .DS_Store
 env/
-database/
+mongo/
 */*.pyc
 *.pyc

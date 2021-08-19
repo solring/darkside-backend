@@ -25,10 +25,25 @@ pip freeze > requirements.txt
 
 Requires `docker` and `docker-compose`
 
-Currently using local volumns rather than mounted volumn.
-```
-./scripts/startdocker.sh
-```
+### Use mounted volumes
+1. Create folder to be mounted as docker volume and to store DB data.
+2. Modify `docker-compose.env`. Change the MONDO environment variable to your created folder.
+    ``` docker-compose.env
+    MONGO=/path/to/your/db/folder
+    ```
+3. Run startdocker.sh
+    ```
+    ./scripts/startdocker.sh
+    ```
+
+
+### Use local volumes
+This is an alternative option if your local filesystem cannot be mounted by docker(e.g. OS X or Windows).
+1. Copy `docker-compose.yaml.localvolume` as `docker-compose.yaml`.
+2. Run startdocker.sh
+    ```
+    ./scripts/startdocker.sh
+    ```
 
 ## Start locally (backend server only)
 ```
@@ -38,3 +53,8 @@ Currently using local volumns rather than mounted volumn.
 # Testing
 
 Testing scripts using `curl` are located in `./tools/test.sh`
+
+# Importing data
+
+Python scripts and example data for importing articles from .csv are located in `./tools/`
+
