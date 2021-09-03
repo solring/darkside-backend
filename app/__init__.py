@@ -38,9 +38,8 @@ def get_article_all():
     start = data['start'] if 'start' in data else 0
     length = data['length'] if 'length' in data else 0
     log(get_article_all, "start: %d, len: %d." %(start, length))
-    end = start + length
 
-    res, nxt = dbq.get_all(start, end)
+    res, nxt = dbq.get_all(start, length)
     return pack(res, nxt)
 
 @app.route("/api/article/<category>", methods=['POST'])
@@ -54,9 +53,7 @@ def get_article_by_category(category):
     length = data['length'] if 'length' in data else 0
     log(get_article_by_category, "start: %d, len: %d." %(start, length))
 
-    end = start + length
-
-    res, nxt = dbq.get_by_category(category, start, end)
+    res, nxt = dbq.get_by_category(category, start, length)
     return pack(res, nxt)
 
 @app.route("/api/tag/all", methods=['GET'])

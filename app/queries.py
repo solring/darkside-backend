@@ -8,22 +8,16 @@ class DBQuery:
         self.client = MongoClient(entrypoint)
         self.db = self.client[db_name]
         self.col = self.db[collection]
-        self.cache = {}
 
-    def get_result(self, cache, start, end):
-        return (cache[start:end], min(end, len(cache)))
+    def get_all(self, start, length):
+        res = [ i for i in self.col.find({}, skip=start, limit=length, projection=def_proj)]
 
-    def get_all(self, start, end):
-        if 'all' not in self.cache:
-            self.cache['all'] = [ i for i in self.col.find({}, projection=def_proj)]
+        return (res, start+len(res))
 
-        return self.get_result(self.cache['all'], start, end)
+    def get_by_category(self, category, start, length):
+        res = [ i for i in self.col.find({'category': category}, skip=start, limit=length, projection=def_proj)]
 
-    def get_by_category(self, category, start, end):
-        if category not in self.cache:
-            self.cache[category] = [ i for i in self.col.find({'category': category}, projection=def_proj)]
-
-        return self.get_result(self.cache[category], start, end)
+        return (res, start+len(res))
 
     def get_total_tags(self):
         pipeline = [
