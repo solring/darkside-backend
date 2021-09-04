@@ -4,8 +4,9 @@ def_proj = {'_id': False}
 
 class DBQuery:
 
-    def __init__(self, entrypoint, db_name, collection):
-        self.client = MongoClient(entrypoint)
+    def __init__(self, entrypoint, user, pwd, db_name, collection):
+        self.client = MongoClient(entrypoint,
+            username=user, password=pwd, authSource='admin', authMechanism='SCRAM-SHA-256')
         self.db = self.client[db_name]
         self.col = self.db[collection]
 

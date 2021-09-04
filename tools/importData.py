@@ -3,21 +3,21 @@ from sys import argv
 from csv import DictReader
 import re
 
-# mongo db location
-MONGODB = "mongodb://localhost:27017/"
 DB = "darkside"
 COLLECTION = "articles"
 
 if __name__ == "__main__":
-    if len(argv) < 2:
-        print("[usage]: python %s [csv file to import]")
+    if len(argv) < 5:
+        print("[usage]: python %s [csv file to import] [host] [user] [pwd]" % argv[0])
         exit(0)
 
-    client = MongoClient(MONGODB)
+    filename, host, user, pwd = argv[1:]
+
+    client = MongoClient(host,
+        username=user, password=pwd, authSource='admin', authMechanism='SCRAM-SHA-256')
     db = client[DB]
     article = db[COLLECTION]
 
-    filename = argv[1]
     with open(filename, 'r') as fd:
         data = DictReader(fd)
 

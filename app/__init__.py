@@ -5,11 +5,13 @@ from .queries import DBQuery
 from .log import log
 
 url = environ.get('MONGO_URL')
+user = environ.get('MONGO_USER')
+pwd = environ.get('MONGO_PWD')
 
 MONGODB = "%s:27017" % url if url else "127.0.0.1:27017"
 DB = "darkside"
 COLLECTION = "articles"
-dbq = DBQuery(MONGODB, DB, COLLECTION)
+dbq = DBQuery(MONGODB, user, pwd, DB, COLLECTION)
 
 app = Flask(__name__)
 CORS(app)
