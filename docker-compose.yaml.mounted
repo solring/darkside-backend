@@ -7,7 +7,7 @@ services:
       - ${MONGO}/db:/data/db
       - ${MONGO}/configdb:/data/configdb
     ports:
-      - 27017:27017
+      - ${MONGO_PORT}:27017
   darkside:
     build: .
     image: darkside-backend:0.2
