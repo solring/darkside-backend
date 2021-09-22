@@ -62,3 +62,10 @@ After starting the server, data can be imported by running the script:
 python3 importData.py [csv you want to import]
 ```
 
+# Setting Certificate for HTTPS
+
+1. Prepare your certificate(crt + ca bundle from your CA provider, concatenated togather.) and key.
+2. Create `ssh/` folder in the root of this repo.
+3. Copy the certificate and the key into `ssh/` as `server.crt` and `server.key`
+4. Start the server using docker-compose
+
