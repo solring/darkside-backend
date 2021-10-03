@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-def pack(result, nxt):
+def pack(result, nxt, cat=""):
     d = {}
     for r in result:
         for t in r['tags']:
@@ -28,6 +28,7 @@ def pack(result, nxt):
         'data': {
             'list': result,
             'next': nxt,
+            'category': cat,
             'tags': tags
         }
     }
@@ -56,7 +57,7 @@ def get_article_by_category(category):
     log(get_article_by_category, "start: %d, len: %d." %(start, length))
 
     res, nxt = dbq.get_by_category(category, start, length)
-    return pack(res, nxt)
+    return pack(res, nxt, cat=category)
 
 @app.route("/api/tag/all", methods=['GET'])
 def get_tags_all():
