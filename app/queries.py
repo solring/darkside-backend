@@ -20,15 +20,27 @@ class DBQuery:
 
         return (res, start+len(res))
 
+    def get_total_category(self):
+        pipeline = [
+            { '$unwind': '$tags' },
+            { '$group': {
+                '_id': '$category' ,
+                'tags': {
+                    '$addToSet': '$tags'
+                }
+            }},
+            { '$set': { 'category' : '$_id'}},
+            { '$unset': '_id' }
+        ]
+
+        res = self.col.aggregate(pipeline)
+        return [ r for r in res ] if res else []
+
+
     def get_total_tags(self):
         pipeline = [
             { '$unwind': '$tags' },
-            {
-                '$group': {
-                    '_id': '$tags',
-                    'count': { '$sum' : 1 }
-                }
-            },
+            { '$group': { '_id': '$tags' } }
         ]
 
         res = self.col.aggregate(pipeline)
@@ -38,12 +50,7 @@ class DBQuery:
         pipeline = [
             { '$match': { 'category' : category } },
             { '$unwind': '$tags' },
-            {
-                '$group': {
-                    '_id': '$tags',
-                    'count': { '$sum' : 1 }
-                }
-            },
+            { '$group': { '_id': '$tags' } }
         ]
 
         res = self.col.aggregate(pipeline)

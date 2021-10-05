@@ -71,6 +71,12 @@ def get_tags_by_category(category):
     log(get_tags_all, res)
     return jsonify(res)
 
+@app.route("/api/category/all", methods=['GET'])
+def get_category_all():
+    res = dbq.get_total_category()
+    log(get_category_all, res)
+    return jsonify(res)
+
 @app.route("/echo")
 def echoTest():
     return "Hello!"
