@@ -7,14 +7,19 @@ DB = "darkside"
 COLLECTION = "articles"
 
 if __name__ == "__main__":
-    if len(argv) < 5:
-        print("[usage]: python %s [csv file to import] [host] [user] [pwd]" % argv[0])
+    if len(argv) < 6:
+        print("[usage]: python %s [csv file to import] [host] [port] [user] [pwd]" % argv[0])
         exit(0)
 
-    filename, host, user, pwd = argv[1:]
+    filename, host, port, user, pwd = argv[1:]
 
-    client = MongoClient(host,
-        username=user, password=pwd, authSource='admin', authMechanism='SCRAM-SHA-256')
+    client = MongoClient(
+        host=host, 
+        port=int(port),
+        username=user,
+        password=pwd,
+        authSource='admin',
+        authMechanism='SCRAM-SHA-256')
     db = client[DB]
     article = db[COLLECTION]
 

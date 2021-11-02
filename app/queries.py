@@ -1,12 +1,17 @@
 from pymongo import MongoClient
+from .log import err
 
 def_proj = {'_id': False}
 
 class DBQuery:
 
     def __init__(self, entrypoint, user, pwd, db_name, collection):
-        self.client = MongoClient(entrypoint,
-            username=user, password=pwd, authSource='admin', authMechanism='SCRAM-SHA-256')
+        self.client = MongoClient(
+            entrypoint,
+            username=user, 
+            password=pwd, 
+            authSource='admin', 
+            authMechanism='SCRAM-SHA-256')
         self.db = self.client[db_name]
         self.col = self.db[collection]
 
@@ -63,3 +68,17 @@ class DBQuery:
         res = [ i for i in self.col.find({'tags': {'$in': tags}}, projection=def_proj) ]
         return res[start:end]
 
+    def insert_article(self, title="", img_url="", desc="", category="", tags=[], height=1):
+        # TODO: data validation
+        if not id: 
+            err(self.insert_article, "article id cannot be null.")
+
+        data = {
+            'title': title,
+            'img': img_url,
+            'desc': desc,
+            'tags': tags,
+            'category': category,
+            'height': height
+        }
+        self.col.insert(data)
